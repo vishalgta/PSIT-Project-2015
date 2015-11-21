@@ -13,7 +13,7 @@ age_0  --> begin range of age.  (default=0)
 age_1  --> end range of age.    (default=119)
 
 '''
-from tool import *
+from data_tool import *
 
 def normal(sex=0):
     '''create graph from all year.'''
