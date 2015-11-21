@@ -14,6 +14,3 @@ def load_data(sex):
 
 def select_data(year_0=1900, year_1=2011, age_0=0, age_1=119):
     '''return data follow by range of years and ages.'''
-
-def graph(data, type, style):
-    '''make graph of data.'''
