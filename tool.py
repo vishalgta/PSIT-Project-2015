@@ -6,7 +6,7 @@ def load_data(sex):
     '''
     import csv
 
-    file = open('data/DeathProbsE_' + sex + '_Hist_TR2015.csv')
+    file = open('data/DeathProbsE_' + 'MF'[sex - 1] + '_Hist_TR2015.csv')
     data = csv.reader(file)
     data_set = [((int(row[0])), list(map(float, row[1:]))) for row in data if row[0].isnumeric()]
 
