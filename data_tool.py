@@ -12,5 +12,22 @@ def load_data(sex):
 
     return dict(data_set)
 
-def select_data(year_0=1900, year_1=2011, age_0=0, age_1=119):
-    '''return data follow by range of years and ages.'''
+def select_data(year_0=1900, year_1=2011, age_0=0, age_1=119, sex=0):
+    '''return data follow by range of years and ages.
+       eg. male and female     --> {'m': {year: [rate of death]},
+                                    'f': {year: [rate of death]}}
+
+           male or female only --> {year: [rate of death]}
+    '''
+    data_set = dict()
+
+    if sex == 0:
+        data_set['m'] = select_data(year_0, year_1, age_0, age_1, 1)
+        data_set['f'] = select_data(year_0, year_1, age_0, age_1, 2)
+    elif sex == 1 or sex == 2:
+        data = load_data(sex)
+        for year in data:
+            if year in range(year_0, year_1 + 1):
+                data_set[year] = data[year][age_0:age_1+1]
+
+    return data_set
