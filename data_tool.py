@@ -26,8 +26,7 @@ def select_data(year_0=1900, year_1=2011, age_0=0, age_1=119, sex=0):
         data_set['f'] = select_data(year_0, year_1, age_0, age_1, 2)
     elif sex == 1 or sex == 2:
         data = load_data(sex)
-        for year in data:
-            if year in range(year_0, year_1 + 1):
-                data_set[year] = data[year][age_0:age_1+1]
+        for year in range(year_0, year_1 + 1):
+            data_set[year] = data[year][age_0:age_1+1]
 
     return data_set
