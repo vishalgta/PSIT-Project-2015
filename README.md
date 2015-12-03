@@ -1,6 +1,4 @@
-﻿test test 123 456
-test
-# American-Death-Probabilities
+﻿# American-Death-Probabilities
 <<<<<<< HEAD
 	ข้อมูลที่มีอยู่ คือ ความน่าจะเป็นในการตายของคนอเมริกา
 	ปี ค.ศ. 1900 - 2011 อายุ 0 - 119
