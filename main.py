@@ -17,9 +17,3 @@ from data_tool import *
 
 def normal(sex=0):
     '''create graph from all year.'''
-
-def highest_death(year_0=1900, year_1=2011, age_0=0, age_1=119, sex=0):
-    '''create graph of highest death rate.'''
-
-def lowest_death(year_0=1900, year_1=2011, age_0=0, age_1=119, sex=0):
-    '''create graph of lowest death rate.'''
