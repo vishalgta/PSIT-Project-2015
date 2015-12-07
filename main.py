@@ -39,13 +39,16 @@ def graph_overall():
         dates = dt.datetime(i, 1, 1)
         values_m = calculate_meandeath_men(i)
         values_f = calculate_meandeath_female(i)
-        mean_lis_men.append(values_m)
-        mean_lis_fem.append(values_f)
+        mean_lis_men.append(values_m*100)
+        mean_lis_fem.append(values_f*100)
         date_lis.append(dates)
 
     fig, ax = plt.subplots()
-    ax.plot_date(date_lis, mean_lis_men, 'k-')
-    ax.plot_date(date_lis, mean_lis_fem, '-', color = '#ff3366' )
+    ax.plot_date(date_lis, mean_lis_men, 'k-', label = 'MALE' )
+    ax.plot_date(date_lis, mean_lis_fem, '-', color = '#ff3366', label = 'FEMALE' )
+    plt.xlabel('Year')
+    plt.ylabel('Death Probability (%)')
+    plt.title('Overall of death percent') 
     # format the ticks
     yearsFmt = DateFormatter('%Y')
     ax.xaxis.set_major_formatter(yearsFmt)
@@ -53,5 +56,6 @@ def graph_overall():
     ax.grid(True)
 
     fig.autofmt_xdate()
+    plt.legend() 
     plt.show()
 graph_overall()
