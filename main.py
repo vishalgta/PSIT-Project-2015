@@ -14,6 +14,44 @@ age_1  --> end range of age.    (default=119)
 
 '''
 from data_tool import *
+from matplotlib.dates import YearLocator, DateFormatter
+import datetime as dt
+import matplotlib.pyplot as plt
 
-def normal(sex=0):
-    '''create graph from all year.'''
+def calculate_meandeath_men(num):
+    """return a average death"""
+    date = load_data(1)
+    mean = sum(date[num])/120
+    return mean
+
+def calculate_meandeath_female(num):
+    """return a average death"""
+    date = load_data(2)
+    mean = sum(date[num])/120
+    return mean
+def graph_overall():
+    """ create graph """
+    
+    date_lis = []
+    mean_lis_men = []
+    mean_lis_fem = []
+    for i in range(1900, 2012):
+        dates = dt.datetime(i, 1, 1)
+        values_m = calculate_meandeath_men(i)
+        values_f = calculate_meandeath_female(i)
+        mean_lis_men.append(values_m)
+        mean_lis_fem.append(values_f)
+        date_lis.append(dates)
+
+    fig, ax = plt.subplots()
+    ax.plot_date(date_lis, mean_lis_men, 'k-')
+    ax.plot_date(date_lis, mean_lis_fem, '-', color = '#ff3366' )
+    # format the ticks
+    yearsFmt = DateFormatter('%Y')
+    ax.xaxis.set_major_formatter(yearsFmt)
+    ax.autoscale_view()
+    ax.grid(True)
+
+    fig.autofmt_xdate()
+    plt.show()
+graph_overall()
