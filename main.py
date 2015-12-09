@@ -46,9 +46,11 @@ def graph_overall():
     fig, ax = plt.subplots()
     ax.plot_date(date_lis, mean_lis_men, 'k-', label = 'MALE' )
     ax.plot_date(date_lis, mean_lis_fem, '-', color = '#ff3366', label = 'FEMALE' )
+    plt.rcParams.update({'font.size': 17})
     plt.xlabel('Year')
     plt.ylabel('Death Probability (%)')
-    plt.title('Overall of death percent') 
+    plt.title('Overall of death percent in each years')
+    
     # format the ticks
     yearsFmt = DateFormatter('%Y')
     ax.xaxis.set_major_formatter(yearsFmt)
