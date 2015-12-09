@@ -70,7 +70,7 @@ def death_probability_graph_of_human():
 
     mean_m = [sum(data_m[i])/len(data_m[i]) for i in range(1900, 2012)]
     mean_f = [sum(data_f[i])/len(data_f[i]) for i in range(1900, 2012)]
-    means = [(mean_m[i] + mean_f[i]) / 2 for i in range(len(mean_m))]
+    means = [((mean_m[i] + mean_f[i]) / 2)*100 for i in range(len(mean_m))]
 
     fig, ax = plt.subplots()
     plt.rcParams.update({'font.size': 15})
@@ -89,5 +89,47 @@ def death_probability_graph_of_human():
 
     fig.autofmt_xdate() #label type
     plt.show()
-    
-death_probability_graph_of_human()
+
+
+def overall_death_probability_graph():
+    """Create Overall death probability graph, male female human, black represent as male, pink represent as female
+and blue represent as human"""
+    date_lis = []
+    mean_lis_men = []
+    mean_lis_fem = []
+    data_m = load_data(1)
+    data_f = load_data(2)
+    mean_list = []
+    for k in range(1900, 2012):
+        dates = dt.datetime(k, 1, 1)
+        values_m = calculate_meandeath_men(k)
+        values_f = calculate_meandeath_female(k)
+        mean_m = [sum(data_m[k])/len(data_m[k])]
+        mean_f = [sum(data_f[k])/len(data_f[k])]
+        mean_lis_men.append(values_m*100)
+        mean_lis_fem.append(values_f*100)
+        date_lis.append(dates)
+        for k in range(len(mean_m)):
+            means = ((mean_m[k] + mean_f[k]) / 2)*100 
+            mean_list.append(means)
+    fig, ax = plt.subplots()
+    ax.plot_date(date_lis, mean_lis_men, 'k-', label = 'MALE' )
+    ax.plot_date(date_lis, mean_lis_fem, '-', color = '#ff3366', label = 'FEMALE' )
+    ax.plot_date(date_lis, mean_list, 'b-', label = 'HUMAN')
+    plt.rcParams.update({'font.size': 17})
+    plt.xlabel('Year')
+    plt.ylabel('Death Probability (%)')
+    plt.title('Overall of death percent in each years')
+
+    # format the ticks
+    yearsFmt = DateFormatter('%Y')
+    ax.xaxis.set_major_formatter(yearsFmt)
+    ax.autoscale_view()
+    ax.grid(True)
+
+    fig.autofmt_xdate()
+    plt.legend() 
+    plt.show()  
+overall_death_probability_graph()
+#death_probability_graph_of_human()
+#death_probability_graph_of_male_and_female()
