@@ -84,3 +84,4 @@ def overall_male_and_female():
 
     fig.autofmt_xdate() #label type
     plt.show()
+graph_overall()
