@@ -55,10 +55,12 @@ def plot_date_graph():
     ax.plot_date(dates, values, '-')
 
     # format the ticks
+    years = YearLocator() #show every year
     yearsFmt = DateFormatter('%Y')
+    ax.xaxis.set_major_locator(years)
     ax.xaxis.set_major_formatter(yearsFmt)
     ax.autoscale_view()
     ax.grid(True)
 
-    fig.autofmt_xdate()
+    fig.autofmt_xdate() #label type
     plt.show()

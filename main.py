@@ -31,7 +31,7 @@ def calculate_meandeath_female(num):
     return mean
 def graph_overall():
     """ create graph """
-    
+
     date_lis = []
     mean_lis_men = []
     mean_lis_fem = []
@@ -60,4 +60,27 @@ def graph_overall():
     fig.autofmt_xdate()
     plt.legend() 
     plt.show()
-graph_overall()
+
+def overall_male_and_female():
+    data_m = load_data(1)
+    data_f = load_data(2)
+
+    dates = [dt.datetime(i, 1, 1) for i in range(1900, 2012)]
+
+    mean_m = [sum(data_m[i])/len(data_m[i]) for i in range(1900, 2012)]
+    mean_f = [sum(data_f[i])/len(data_f[i]) for i in range(1900, 2012)]
+    means = [(mean_m[i] + mean_f[i]) / 2 for i in range(len(mean_m))]
+
+    fig, ax = plt.subplots()
+    ax.plot_date(dates, means, '-')
+
+    # format the ticks
+    years = YearLocator() #show every year
+    yearsFmt = DateFormatter('%Y')
+    # ax.xaxis.set_major_locator(years)
+    ax.xaxis.set_major_formatter(yearsFmt)
+    ax.autoscale_view()
+    ax.grid(True)
+
+    fig.autofmt_xdate() #label type
+    plt.show()
