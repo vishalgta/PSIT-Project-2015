@@ -19,18 +19,18 @@ import datetime as dt
 import matplotlib.pyplot as plt
 
 def calculate_meandeath_men(num):
-    """return a average death"""
+    """return a average death of men"""
     date = load_data(1)
     mean = sum(date[num])/120
     return mean
 
 def calculate_meandeath_female(num):
-    """return a average death"""
+    """return a average death of female"""
     date = load_data(2)
     mean = sum(date[num])/120
     return mean
-def graph_overall():
-    """ create graph """
+def death_probability_graph_of_male_and_female():
+    """Create death probability graph of male and female, black line represent as male and pink line represent as female"""
 
     date_lis = []
     mean_lis_men = []
@@ -61,7 +61,8 @@ def graph_overall():
     plt.legend() 
     plt.show()
 
-def overall_male_and_female():
+def death_probability_graph_of_human():
+    """Create a death probability graph of human, blue line represnt as human"""
     data_m = load_data(1)
     data_f = load_data(2)
 
@@ -72,7 +73,11 @@ def overall_male_and_female():
     means = [(mean_m[i] + mean_f[i]) / 2 for i in range(len(mean_m))]
 
     fig, ax = plt.subplots()
-    ax.plot_date(dates, means, '-')
+    plt.rcParams.update({'font.size': 15})
+    ax.plot_date(dates, means, 'b-', label = 'HUMAN')
+    plt.title('Death probability of human in each years')
+    plt.xlabel('Year')
+    plt.ylabel('Death Probability (%)')
 
     # format the ticks
     years = YearLocator() #show every year
@@ -84,4 +89,5 @@ def overall_male_and_female():
 
     fig.autofmt_xdate() #label type
     plt.show()
-graph_overall()
+    
+death_probability_graph_of_human()
