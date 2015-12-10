@@ -15,9 +15,9 @@ age_1  --> end range of age.    (default=119)
 '''
 from data_tool import *
 from matplotlib.dates import YearLocator, DateFormatter
+from matplotlib.ticker import FormatStrFormatter
 import datetime as dt
 import matplotlib.pyplot as plt
-import numpy as np
 
 def calculate_meandeath_men(num):
     """return a average death of men"""
@@ -76,7 +76,7 @@ def overall_death_probability_graph(year_0=1900, year_1=2011):
 
     # process data.---------------------------------------#
     for year in range(year_0, year_1 + 1):
-        date = dt.datetime(year, 1, 1)
+        date = dt.datetime(year, 12, 31)
         values_m = sum(data_m[year]) / len(data_m[year]) * 100
         values_f = sum(data_f[year]) / len(data_f[year]) * 100
         mean = (values_m + values_f) / 2
@@ -87,26 +87,27 @@ def overall_death_probability_graph(year_0=1900, year_1=2011):
         avg.append(mean)
 
     # plot graph.-----------------------------------------#
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(18, 6))
 
-    with plt.style.context('fivethirtyeight'):
-        ax.plot_date(dates, mean_m, '-', color='#66CCFF', label='Male', alpha=0.9)
-        ax.plot_date(dates, mean_f, '-', color='#FF99FF', label='Female', alpha=0.9)
+    ax.plot_date(dates, mean_m, '-', color='#66CCFF', label='Male', alpha=0.9, linewidth=3)
+    ax.plot_date(dates, mean_f, '-', color='#FF99FF', label='Female', alpha=0.9, linewidth=3)
     ax.plot_date(dates, avg, 'k-', label='avg.', alpha=0.25)
 
-    plt.rcParams.update({'font.size': 17})
-    plt.xlabel('Year')
-    plt.ylabel('Death Probability (%)')
-    plt.title('Overall of death percent in each years')
-
-    # format the ticks
+    # format the ticks.-----------------------------------#
+    years = YearLocator(5, 12, 31) # every year, month, day
     yearsFmt = DateFormatter('%Y')
+    yticks = FormatStrFormatter('%.0f%%')
+    ax.xaxis.set_major_locator(years)
     ax.xaxis.set_major_formatter(yearsFmt)
+    ax.yaxis.set_major_formatter(yticks)
     ax.autoscale_view()
     ax.grid(True)
-    #show every year
-    # years = YearLocator()
-    # ax.xaxis.set_major_locator(years)
+
+    # expression.-----------------------------------------#
+    plt.rcParams.update({'font.size': 17})
+    plt.xlabel('Years')
+    plt.ylabel('Death Probability')
+    plt.title('Overall of death percent in each years.')
 
     fig.autofmt_xdate()
     plt.legend()
