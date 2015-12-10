@@ -46,8 +46,8 @@ def death_probability_graph_of_male_and_female():
         date_lis.append(dates)
 
     fig, ax = plt.subplots()
-    ax.plot_date(date_lis, mean_lis_men, 'k-', label = 'MALE' )
-    ax.plot_date(date_lis, mean_lis_fem, '-', color = '#ff3366', label = 'FEMALE' )
+    ax.plot_date(date_lis, mean_lis_men, 'b-', label = 'MALE', alpha=3, linewidth=2)
+    ax.plot_date(date_lis, mean_lis_fem, '-', color='#ff3366', label = 'FEMALE', alpha=2, linewidth=2)
     plt.rcParams.update({'font.size': 17})
     plt.xlabel('Year')
     plt.ylabel('Death Probability (%)')
@@ -89,9 +89,9 @@ def overall_death_probability_graph(year_0=1900, year_1=2011):
     # plot graph.-----------------------------------------#
     fig, ax = plt.subplots(figsize=(18, 6))
 
-    ax.plot_date(dates, mean_m, '-', color='#66CCFF', label='Male', alpha=0.9, linewidth=3)
-    ax.plot_date(dates, mean_f, '-', color='#FF99FF', label='Female', alpha=0.9, linewidth=3)
-    ax.plot_date(dates, avg, 'k-', label='avg.', alpha=0.25)
+    ax.plot_date(dates, mean_m, 'b-', label='Male', alpha=0.9, linewidth=2)
+    ax.plot_date(dates, mean_f, 'r-', label='Female', alpha=0.9, linewidth=2)
+    ax.plot_date(dates, avg, 'k-', label='avg.', alpha=1)
 
     # format the ticks.-----------------------------------#
     years = YearLocator(5, 12, 31) # every year, month, day
