@@ -17,6 +17,7 @@ from data_tool import *
 from matplotlib.dates import YearLocator, DateFormatter
 import datetime as dt
 import matplotlib.pyplot as plt
+import numpy as np
 
 def calculate_meandeath_men(num):
     """return a average death of men"""
@@ -29,6 +30,7 @@ def calculate_meandeath_female(num):
     date = load_data(2)
     mean = sum(date[num])/120
     return mean
+
 def death_probability_graph_of_male_and_female():
     """Create death probability graph of male and female, black line represent as male and pink line represent as female"""
 
@@ -50,7 +52,7 @@ def death_probability_graph_of_male_and_female():
     plt.xlabel('Year')
     plt.ylabel('Death Probability (%)')
     plt.title('Overall of death percent in each years')
-    
+
     # format the ticks
     yearsFmt = DateFormatter('%Y')
     ax.xaxis.set_major_formatter(yearsFmt)
@@ -58,64 +60,40 @@ def death_probability_graph_of_male_and_female():
     ax.grid(True)
 
     fig.autofmt_xdate()
-    plt.legend() 
+    plt.legend()
     plt.show()
 
-def death_probability_graph_of_human():
-    """Create a death probability graph of human, blue line represnt as human"""
+def overall_death_probability_graph(year_0=1900, year_1=2011):
+    """Create Overall death probability graph, male female average,
+       black represent as male,
+       pink represent as female,
+       blue represent as average.
+    """
+    # prepare data.---------------------------------------#
+    dates, mean_m, mean_f, avg = [], [], [], []
     data_m = load_data(1)
     data_f = load_data(2)
 
-    dates = [dt.datetime(i, 1, 1) for i in range(1900, 2012)]
+    # process data.---------------------------------------#
+    for year in range(year_0, year_1 + 1):
+        date = dt.datetime(year, 1, 1)
+        values_m = sum(data_m[year]) / len(data_m[year]) * 100
+        values_f = sum(data_f[year]) / len(data_f[year]) * 100
+        mean = (values_m + values_f) / 2
 
-    mean_m = [sum(data_m[i])/len(data_m[i]) for i in range(1900, 2012)]
-    mean_f = [sum(data_f[i])/len(data_f[i]) for i in range(1900, 2012)]
-    means = [((mean_m[i] + mean_f[i]) / 2)*100 for i in range(len(mean_m))]
+        dates.append(date)
+        mean_m.append(values_m)
+        mean_f.append(values_f)
+        avg.append(mean)
 
+    # plot graph.-----------------------------------------#
     fig, ax = plt.subplots()
-    plt.rcParams.update({'font.size': 15})
-    ax.plot_date(dates, means, 'b-', label = 'HUMAN')
-    plt.title('Death probability of human in each years')
-    plt.xlabel('Year')
-    plt.ylabel('Death Probability (%)')
 
-    # format the ticks
-    years = YearLocator() #show every year
-    yearsFmt = DateFormatter('%Y')
-    # ax.xaxis.set_major_locator(years)
-    ax.xaxis.set_major_formatter(yearsFmt)
-    ax.autoscale_view()
-    ax.grid(True)
+    with plt.style.context('fivethirtyeight'):
+        ax.plot_date(dates, mean_m, '-', color='#66CCFF', label='Male', alpha=0.9)
+        ax.plot_date(dates, mean_f, '-', color='#FF99FF', label='Female', alpha=0.9)
+    ax.plot_date(dates, avg, 'k-', label='avg.', alpha=0.25)
 
-    fig.autofmt_xdate() #label type
-    plt.show()
-
-
-def overall_death_probability_graph():
-    """Create Overall death probability graph, male female human, black represent as male, pink represent as female
-and blue represent as human"""
-    date_lis = []
-    mean_lis_men = []
-    mean_lis_fem = []
-    data_m = load_data(1)
-    data_f = load_data(2)
-    mean_list = []
-    for k in range(1900, 2012):
-        dates = dt.datetime(k, 1, 1)
-        values_m = calculate_meandeath_men(k)
-        values_f = calculate_meandeath_female(k)
-        mean_m = [sum(data_m[k])/len(data_m[k])]
-        mean_f = [sum(data_f[k])/len(data_f[k])]
-        mean_lis_men.append(values_m*100)
-        mean_lis_fem.append(values_f*100)
-        date_lis.append(dates)
-        for k in range(len(mean_m)):
-            means = ((mean_m[k] + mean_f[k]) / 2)*100 
-            mean_list.append(means)
-    fig, ax = plt.subplots()
-    ax.plot_date(date_lis, mean_lis_men, 'k-', label = 'MALE' )
-    ax.plot_date(date_lis, mean_lis_fem, '-', color = '#ff3366', label = 'FEMALE' )
-    ax.plot_date(date_lis, mean_list, 'b-', label = 'HUMAN')
     plt.rcParams.update({'font.size': 17})
     plt.xlabel('Year')
     plt.ylabel('Death Probability (%)')
@@ -126,10 +104,12 @@ and blue represent as human"""
     ax.xaxis.set_major_formatter(yearsFmt)
     ax.autoscale_view()
     ax.grid(True)
+    #show every year
+    # years = YearLocator()
+    # ax.xaxis.set_major_locator(years)
 
     fig.autofmt_xdate()
-    plt.legend() 
-    plt.show()  
+    plt.legend()
+    plt.show()
+
 overall_death_probability_graph()
-#death_probability_graph_of_human()
-#death_probability_graph_of_male_and_female()
