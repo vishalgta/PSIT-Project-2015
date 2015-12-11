@@ -146,8 +146,8 @@ def calculate_mean_of_each_generation(num, k, mem):
             return sum(mem)/60
 
 
-def death_probability_graph_men_in_each_ages():
-    """create death probability graph that points about men in each age for used to know that..
+def death_probability_graph_men_in_each_generation():
+    """Create Men death probability of each generation, a graph points about men death probability in each age
         0 - 3 baby
         4 - 6 early childhood
         7 - 12 middle childhood
@@ -210,15 +210,15 @@ def death_probability_graph_men_in_each_ages():
     fig, ax = plt.subplots()
     ax.plot_date(date_lis, baby_list, 'b-', label = 'baby', alpha=3, linewidth=2)
     ax.plot_date(date_lis, early_child_list, '-', color='#ff3366', label = 'early childhood', alpha=2, linewidth=2)
-    ax.plot_date(date_lis, middle_child_list, '-', label = 'middle childhood', alpha=3, linewidth=2)
-    ax.plot_date(date_lis, teenager_list, '-', label = 'teenager', alpha=3, linewidth=2)
-    ax.plot_date(date_lis, early_adult_list, '-', label = 'early adult', alpha=3, linewidth=2)
-    ax.plot_date(date_lis, middle_adult_list, '-', label = 'middle adult', alpha=3, linewidth=2)
+    ax.plot_date(date_lis, middle_child_list, 'y-', label = 'middle childhood', alpha=3, linewidth=2)
+    ax.plot_date(date_lis, teenager_list, 'c-', label = 'teenager', alpha=3, linewidth=2)
+    ax.plot_date(date_lis, early_adult_list, 'r-', label = 'early adult', alpha=3, linewidth=2)
+    ax.plot_date(date_lis, middle_adult_list, 'g-', label = 'middle adult', alpha=3, linewidth=2)
     ax.plot_date(date_lis, old_age_list, '-', label = 'old age', alpha=3, linewidth=2)
     plt.rcParams.update({'font.size': 17})
-    plt.xlabel('Year')
+    plt.xlabel('Generation')
     plt.ylabel('Death Probability (%)')
-    plt.title('Overall of death percent in each years')
+    plt.title('Death probability of each generation')
 
     # format the ticks
     yearsFmt = DateFormatter('%Y')
@@ -230,8 +230,8 @@ def death_probability_graph_men_in_each_ages():
     plt.legend()
     plt.show()
 
-def death_probability_graph_of_men_in_bar_graph():
-    """create bar graph
+def death_probability_graph_in_bar_graph():
+    """Create Death probability of each generation in bar graph, a graph points about death probability in each age
     0 - 3 baby
     4 - 6 early childhood
     7 - 12 middle childhood
@@ -240,7 +240,6 @@ def death_probability_graph_of_men_in_bar_graph():
     40 - 59 middle adulthood
     60 - 119 old age"""
     age = ('baby', 'early', 'middle', 'teenager', 'early adulthood', 'middle adulthood', 'old age')
-    #age = ('Chil', 'Teen', 'Adult', 'Old', 'Immortal', 'duhust')
     men_data = load_data(1)
     female_data = load_data(2)
     lis_men = []
@@ -271,107 +270,103 @@ def death_probability_graph_of_men_in_bar_graph():
             if k <= 3:
                 values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
                 if values != None:
-                    baby_list.append(values*100)
+                    baby_list.append(values)
                     mem = []
             elif k <= 6:
                 values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
                 if values != None:
-                    early_child_list.append(values*100)
+                    early_child_list.append(values)
                     mem = []
             elif k <= 12:
                 values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
                 if values != None:
-                    middle_child_list.append(values*100)
+                    middle_child_list.append(values)
                     mem = []
             elif k <= 19:
                 values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
                 if values != None:
-                    teenager_list.append(values*100)
+                    teenager_list.append(values)
                     mem = []
             elif k <= 39:
                 values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
                 if values != None:
-                    early_adult_list.append(values*100)
+                    early_adult_list.append(values)
                     mem = []
             elif k <= 59:
                 values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
                 if values != None:
-                    middle_adult_list.append(values*100)
+                    middle_adult_list.append(values)
                     mem = []
             elif k <= 119:
                 values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
                 if values != None:
-                    old_age_list.append(values*100)
+                    old_age_list.append(values)
                     mem = []
         for j in range(len(lis_fm[0])):
             if j <= 3:
                 values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
                 if values != None:
-                    baby_list_fm.append(values*100)
+                    baby_list_fm.append(values)
                     mem = []
             elif j <= 6:
                 values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
                 if values != None:
-                    early_child_list_fm.append(values*100)
+                    early_child_list_fm.append(values)
                     mem = []
             elif j <= 12:
                 values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
                 if values != None:
-                    middle_child_list_fm.append(values*100)
+                    middle_child_list_fm.append(values)
                     mem = []
             elif j <= 19:
                 values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
                 if values != None:
-                    teenager_list_fm.append(values*100)
+                    teenager_list_fm.append(values)
                     mem = []
             elif j <= 39:
                 values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
                 if values != None:
-                    early_adult_list_fm.append(values*100)
+                    early_adult_list_fm.append(values)
                     mem = []
             elif j <= 59:
                 values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
                 if values != None:
-                    middle_adult_list_fm.append(values*100)
+                    middle_adult_list_fm.append(values)
                     mem = []
             elif j <= 119:
                 values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
                 if values != None:
-                    old_age_list_fm.append(values*100)
+                    old_age_list_fm.append(values)
                     mem = []
-    sex_men.append(sum(baby_list)/112)
-    sex_men.append(sum(early_child_list)/112)
-    sex_men.append(sum(middle_child_list)/112)
-    sex_men.append(sum(teenager_list)/112)
-    sex_men.append(sum(early_adult_list)/112)
-    sex_men.append(sum(middle_adult_list)/112)
-    sex_men.append(sum(old_age_list)/112)
-    print(sex_men)
-    sex_fm.append(sum(baby_list_fm)/112)
-    sex_fm.append(sum(early_child_list_fm)/112)
-    sex_fm.append(sum(middle_child_list_fm)/112)
-    sex_fm.append(sum(teenager_list_fm)/112)
-    sex_fm.append(sum(early_adult_list_fm)/112)
-    sex_fm.append(sum(middle_adult_list_fm)/112)
-    sex_fm.append(sum(old_age_list_fm)/112)
-    print(sex_fm)
+    sex_men.append((sum(baby_list)/112)*100)
+    sex_men.append((sum(early_child_list)/112)*100)
+    sex_men.append((sum(middle_child_list)/112)*100)
+    sex_men.append((sum(teenager_list)/112)*100)
+    sex_men.append((sum(early_adult_list)/112)*100)
+    sex_men.append((sum(middle_adult_list)/112)*100)
+    sex_men.append((sum(old_age_list)/112)*100)
+    sex_fm.append((sum(baby_list_fm)/112)*100)
+    sex_fm.append((sum(early_child_list_fm)/112)*100)
+    sex_fm.append((sum(middle_child_list_fm)/112)*100)
+    sex_fm.append((sum(teenager_list_fm)/112)*100)
+    sex_fm.append((sum(early_adult_list_fm)/112)*100)
+    sex_fm.append((sum(middle_adult_list_fm)/112)*100)
+    sex_fm.append((sum(old_age_list_fm)/112)*100)
 
     index = np.arange(len(age))
     bar_width = 0.35
 
     x = index
-    #y_m = [50, 25, 75, 100, 0, 20]
-    #y_f = [75, 50, 80, 120, 10, 30]
 
-    plt.barh(x, sex_men, bar_width, color='b', label='Male')
-    plt.barh(x + bar_width, sex_fm, bar_width, color='r', label='Female')
+    plt.barh(x, sex_men, bar_width, color='b', label='MALE')
+    plt.barh(x + bar_width, sex_fm, bar_width, color='#ff3366', label='FEMALE')
 
     plt.yticks(x + bar_width, age)
-    plt.ylabel('Age')
-    plt.xlabel('Death Chance (%)')
-    plt.title('Title Here')
+    plt.ylabel('Generation')
+    plt.xlabel('Death Probability (%)')
+    plt.title('Death probability of each generation')
     plt.legend()
 
     plt.show()
-
-death_probability_graph_of_men_in_bar_graph()
+#death_probability_graph_men_in_each_generation()
+death_probability_graph_in_bar_graph()
