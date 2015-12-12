@@ -1,32 +1,38 @@
 ﻿# American-Death-Probabilities
-ข้อมูลที่มีอยู่ คือ ความน่าจะเป็นในการตายของคนอเมริกา
-ปี ค.ศ. 1900 - 2011 อายุ 0 - 119
-ชาย หญิง แยกไฟล์กัน
+Create Visualize of the American Death Probabilities data.
+since 1900 - 2011
 
-## ฟังชั่นที่จะทำกัน(ใส่ใน main.py)
-[Tae] กราฟภาพรวม 2 กราฟ (แบบปี กับ แบบอายุ เป็นแกน x, โอกาสตายเป็นแกน y) ทั้งชายและหญิงอยู่ในกราฟเดียวกัน
+##Requirement
+- python3
+      - numpy
+      - matplotlib
 
-แล้วดูว่าช่วงนี้ๆ 
+###main.py
 
-- ทำไมตายกันเยอะจัง 
-- หลังๆมาทำไมตายน้อยลง
-- เพศไหนโอกาสตายสูงกว่ากัน
-- (ถ้าทำกราฟแล้วเห็นไรมาเพิ่มเลย)
+```
+overall_death_probability_graph()
+```
+- [X] Create Overall death probability graph male and female.
+blue represent as male and red represent as female.
 
-เราก็นำเสนอว่าเกิดไรขึ้น
+---
 
-[nontakris, bell, tae] กราฟแยกวัย (ทารก, เด็ก, วัยรุ่น, ผู้ใหญ่, ชรา เป็นแกน x, โอกาสตายเป็นแกน y) ทั้งชายและหญิงอยู่ในกราฟเดียวกัน
+```
+death_probability_graph_in_bar_graph()
+```
+- [X] Create Death probability of each generation in bar graph, a graph points about death probability in each age.
+- 0 - 3 baby
+- 4 - 6 early childhood
+- 7 - 12 middle childhood
+- 13 -19 teenager
+- 21 - 39 early adulthood
+- 41 - 59 middle adulthood
+- 61 - 119 old age
 
-แล้วดูว่าช่วงนี้ๆ 
+###data_tool.py
+```
+data_tool(sex)
+```
+load all data to dict form. ex. >>> {year: [death prob]}
 
-- วัยไหนมีโอกาสตายมากสุด
-- เพศไหนโอกาสตายสูงกว่ากัน
-- (ถ้าทำกราฟแล้วเห็นไรมาเพิ่มเลย)
-
-เราก็นำเสนอว่าเกิดไรขึ้น
-
-## data_tool.py
-มีฟังชั่น load_data() ไว้โหลดข้อมูลทั้งดุ้น ออกมาเป็น dict
-      select_data() เลือกข้อมูลได้   ออกมาเป็น dict
-
-รายละเอียดอยู่ในไฟล์
+by sex 1 == male, 2 == female and index of death prob list is age.
