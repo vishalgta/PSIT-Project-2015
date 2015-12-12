@@ -1,17 +1,5 @@
 '''
 Main of Program
-=========================
-Parameter Instruction.
-sex    --> 0 == male and femal (default)
-           1 == male only
-           2 == female only
-
-year_0 --> begin range of year. (default=1900)
-year_1 --> end range of year.   (default=2011)
-
-age_0  --> begin range of age.  (default=0)
-age_1  --> end range of age.    (default=119)
-
 '''
 from data_tool import *
 import numpy as np
@@ -27,7 +15,7 @@ def overall_death_probability_graph(year_0=1900, year_1=2011):
        blue represent as average.
     """
     # prepare data.---------------------------------------#
-    dates, mean_m, mean_f, avg = [], [], [], []
+    dates, mean_m, mean_f = [], [], []
     data_m = load_data(1)
     data_f = load_data(2)
 
@@ -36,19 +24,16 @@ def overall_death_probability_graph(year_0=1900, year_1=2011):
         date = dt.datetime(year, 12, 31)
         values_m = sum(data_m[year]) / len(data_m[year]) * 100
         values_f = sum(data_f[year]) / len(data_f[year]) * 100
-        mean = (values_m + values_f) / 2
 
         dates.append(date)
         mean_m.append(values_m)
         mean_f.append(values_f)
-        avg.append(mean)
 
     # plot graph.-----------------------------------------#
     fig, ax = plt.subplots(figsize=(18, 6))
 
     ax.plot_date(dates, mean_m, 'b-', label='Male', alpha=0.9, linewidth=2)
     ax.plot_date(dates, mean_f, 'r-', label='Female', alpha=0.9, linewidth=2)
-    ax.plot_date(dates, avg, 'k-', label='avg.', alpha=1)
 
     # format the ticks.-----------------------------------#
     years = YearLocator(5, 12, 31) # every year, month, day
@@ -70,6 +55,37 @@ def overall_death_probability_graph(year_0=1900, year_1=2011):
     plt.legend()
     plt.show()
 
+def calculate_mean_of_each_generation(num, k, mem):
+    """return mean of each generation"""
+    if k <= 3:
+        mem.append(num)
+        if len(mem) == 4:
+            return sum(mem)/4
+    elif k <= 6:
+        mem.append(num)
+        if len(mem) == 3:
+            return sum(mem)/3
+    elif k <= 12:
+        mem.append(num)
+        if len(mem) == 6:
+            return sum(mem)/6
+    elif k <= 19:
+        mem.append(num)
+        if len(mem) == 7:
+            return sum(mem)/7
+    elif k <= 39:
+        mem.append(num)
+        if len(mem) == 20:
+            return sum(mem)/20
+    elif k <= 59:
+        mem.append(num)
+        if len(mem) == 20:
+            return sum(mem)/20
+    elif k <= 119:
+        mem.append(num)
+        if len(mem) == 60:
+            return sum(mem)/60
+
 def death_probability_graph_in_bar_graph():
     """
     Create Death probability of each generation in bar graph, a graph points
@@ -77,54 +93,144 @@ def death_probability_graph_in_bar_graph():
     0 - 3 baby
     4 - 6 early childhood
     7 - 12 middle childhood
-    13 -20 teenager
-    21 - 40 early adulthood
-    41 - 60 middle adulthood
+    13 -19 teenager
+    21 - 39 early adulthood
+    41 - 59 middle adulthood
     61 - 119 old age
     """
-    data_m = load_data(1)
-    data_f = load_data(2)
+    # prepare data.---------------------------------------#
     age = ('Baby', 'Early Childhood', 'Middle Childhood', 'Teenager',
            'Early Adulthood', 'Middle Adulthood', 'Old')
+    men_data = load_data(1)
+    female_data = load_data(2)
+    lis_men = []
+    lis_fm = []
+    baby_list = []
+    early_child_list = []
+    middle_child_list = []
+    teenager_list = []
+    early_adult_list = []
+    middle_adult_list = []
+    old_age_list = []
+    baby_list_fm = []
+    early_child_list_fm = []
+    middle_child_list_fm = []
+    teenager_list_fm = []
+    early_adult_list_fm = []
+    middle_adult_list_fm = []
+    old_age_list_fm = []
+    sex_men = []
+    sex_fm = []
+    mem = []
 
+    # process data.---------------------------------------#
+    for i in range(1900, 2012):
+        lis_men = []
+        lis_fm = []
+        lis_men.append(men_data[i])
+        lis_fm.append(female_data[i])
+        for k in range(len(lis_men[0])):
+            if k <= 3:
+                values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
+                if values != None:
+                    baby_list.append(values)
+                    mem = []
+            elif k <= 6:
+                values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
+                if values != None:
+                    early_child_list.append(values)
+                    mem = []
+            elif k <= 12:
+                values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
+                if values != None:
+                    middle_child_list.append(values)
+                    mem = []
+            elif k <= 19:
+                values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
+                if values != None:
+                    teenager_list.append(values)
+                    mem = []
+            elif k <= 39:
+                values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
+                if values != None:
+                    early_adult_list.append(values)
+                    mem = []
+            elif k <= 59:
+                values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
+                if values != None:
+                    middle_adult_list.append(values)
+                    mem = []
+            elif k <= 119:
+                values = calculate_mean_of_each_generation(lis_men[0][k], k, mem)
+                if values != None:
+                    old_age_list.append(values)
+                    mem = []
+        for j in range(len(lis_fm[0])):
+            if j <= 3:
+                values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
+                if values != None:
+                    baby_list_fm.append(values)
+                    mem = []
+            elif j <= 6:
+                values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
+                if values != None:
+                    early_child_list_fm.append(values)
+                    mem = []
+            elif j <= 12:
+                values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
+                if values != None:
+                    middle_child_list_fm.append(values)
+                    mem = []
+            elif j <= 19:
+                values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
+                if values != None:
+                    teenager_list_fm.append(values)
+                    mem = []
+            elif j <= 39:
+                values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
+                if values != None:
+                    early_adult_list_fm.append(values)
+                    mem = []
+            elif j <= 59:
+                values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
+                if values != None:
+                    middle_adult_list_fm.append(values)
+                    mem = []
+            elif j <= 119:
+                values = calculate_mean_of_each_generation(lis_fm[0][j], j, mem)
+                if values != None:
+                    old_age_list_fm.append(values)
+                    mem = []
+
+    sex_men.append((sum(baby_list)/112)*100)
+    sex_men.append((sum(early_child_list)/112)*100)
+    sex_men.append((sum(middle_child_list)/112)*100)
+    sex_men.append((sum(teenager_list)/112)*100)
+    sex_men.append((sum(early_adult_list)/112)*100)
+    sex_men.append((sum(middle_adult_list)/112)*100)
+    sex_men.append((sum(old_age_list)/112)*100)
+    sex_fm.append((sum(baby_list_fm)/112)*100)
+    sex_fm.append((sum(early_child_list_fm)/112)*100)
+    sex_fm.append((sum(middle_child_list_fm)/112)*100)
+    sex_fm.append((sum(teenager_list_fm)/112)*100)
+    sex_fm.append((sum(early_adult_list_fm)/112)*100)
+    sex_fm.append((sum(middle_adult_list_fm)/112)*100)
+    sex_fm.append((sum(old_age_list_fm)/112)*100)
+
+    # plot graph.-----------------------------------------#
     index = np.arange(len(age))
     bar_width = 0.35
     x = index
-    y_m = [0] * len(age)
-    y_f = [0] * len(age)
-
-    for year in range(1900, 2012):
-        y_m[0] += sum(data_m[year][0:4])/len(data_m[year][0:4])
-        y_m[1] += sum(data_m[year][4:7])/len(data_m[year][4:7])
-        y_m[2] += sum(data_m[year][7:13])/len(data_m[year][7:13])
-        y_m[3] += sum(data_m[year][13:21])/len(data_m[year][13:21])
-        y_m[4] += sum(data_m[year][21:41])/len(data_m[year][21:41])
-        y_m[5] += sum(data_m[year][41:61])/len(data_m[year][41:61])
-        y_m[6] += sum(data_m[year][61:])/len(data_m[year][61:])
-        #y_m[7] += sum(data_m[year][81:])/len(data_m[year][81:])
-
-        y_f[0] += sum(data_f[year][0:4])/len(data_f[year][0:4])
-        y_f[1] += sum(data_f[year][4:7])/len(data_f[year][4:7])
-        y_f[2] += sum(data_f[year][7:13])/len(data_f[year][7:13])
-        y_f[3] += sum(data_f[year][13:21])/len(data_f[year][13:21])
-        y_f[4] += sum(data_f[year][21:41])/len(data_f[year][21:41])
-        y_f[5] += sum(data_f[year][41:61])/len(data_f[year][41:61])
-        y_f[6] += sum(data_f[year][61:])/len(data_f[year][61:])
-        #y_f[7] += sum(data_f[year][81:])/len(data_f[year][81:])
-
-    for i in range(7):
-        y_m[i] = y_m[i] / 112 * 100
-        y_f[i] = y_f[i] / 112 * 100
 
     fig,(ax,ax2) = plt.subplots(1, 2, sharey=True)
 
-    ax.barh(x, y_m, bar_width, color='b', label='Male')
-    ax.barh(x + bar_width, y_f, bar_width, color='r', label='Female')
-    ax2.barh(x, y_m, bar_width, color='b', label='Male')
-    ax2.barh(x + bar_width, y_f, bar_width, color='r', label='Female')
+    ax.barh(x, sex_men, bar_width, color='b', label='Male')
+    ax.barh(x + bar_width, sex_fm, bar_width, color='r', label='Female')
+    ax2.barh(x, sex_men, bar_width, color='b', label='Male')
+    ax2.barh(x + bar_width, sex_fm, bar_width, color='r', label='Female')
 
     ax.set_xlim(0, 6)
-    ax2.set_xlim(25, 35)
+    ax2.set_xlim(27, 32)
     ax.spines['right'].set_visible(False)
     ax2.spines['left'].set_visible(False)
     ax.yaxis.tick_left()
@@ -151,4 +257,5 @@ def death_probability_graph_in_bar_graph():
     fig.suptitle("Death Probability of each Generation.", fontsize=14, fontweight='bold')
     plt.show()
 
-death_probability_graph_in_bar_graph()
+# overall_death_probability_graph()
+# death_probability_graph_in_bar_graph()
