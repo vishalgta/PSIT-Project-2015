@@ -9,10 +9,9 @@ import datetime as dt
 import matplotlib.pyplot as plt
 
 def overall_death_probability_graph(year_0=1900, year_1=2011):
-    """Create Overall death probability graph, male female average,
+    """Create Overall death probability graph male and female
        black represent as male,
-       pink represent as female,
-       blue represent as average.
+       pink represent as female.
     """
     # prepare data.---------------------------------------#
     dates, mean_m, mean_f = [], [], []
