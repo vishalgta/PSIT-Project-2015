@@ -256,5 +256,31 @@ def death_probability_graph_in_bar_graph():
     fig.suptitle("Death Probability of each Generation.", fontsize=14, fontweight='bold')
     plt.show()
 
+def surface_overall_deadth_prob():
+    """Create 3d Surface Graph overall deadth probability."""
+    import plotly.plotly as py
+    import plotly.tools as tls
+    from plotly.graph_objs import *
+    #py.sign_in("username", "api key")
+
+    data_m = load_data(1)
+    data_f = load_data(2)
+
+    x = list(range(120))
+    y = list(range(1900, 2012))
+    z = []
+
+    for year in range(1900, 2012):
+        temp = []
+        for age in range(120):
+            temp.append((data_m[year][age] + data_f[year][age]) / 2)
+        z.append(temp)
+
+    trace = [Surface(z=z, x=x, y=y)]
+
+    fig = Figure(data=trace)
+    plot_url = py.plot(fig, filename="Overall Death Probability Surface Graph.")
+
 # overall_death_probability_graph()
 # death_probability_graph_in_bar_graph()
+# surface_overall_deadth_prob()
