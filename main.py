@@ -7,6 +7,9 @@ from matplotlib.dates import YearLocator, DateFormatter
 from matplotlib.ticker import FormatStrFormatter
 import datetime as dt
 import matplotlib.pyplot as plt
+import plotly.plotly as py
+import plotly.tools as tls
+from plotly.graph_objs import *
 
 def overall_death_probability_graph(year_0=1900, year_1=2011):
     """Create Overall death probability graph male and female
@@ -228,13 +231,18 @@ def death_probability_graph_in_bar_graph():
     ax2.barh(x, sex_men, bar_width, color='b', label='Male')
     ax2.barh(x + bar_width, sex_fm, bar_width, color='r', label='Female')
 
-    ax.set_xlim(0, 6)
+    ax.set_xlim(0, 2)
     ax2.set_xlim(27, 32)
     ax.spines['right'].set_visible(False)
     ax2.spines['left'].set_visible(False)
     ax.yaxis.tick_left()
     ax.tick_params(labeltop='off') # don't put tick labels at the top
     ax2.yaxis.tick_right()
+    xticks = FormatStrFormatter('%.0f%%')
+    ax.xaxis.set_major_formatter(xticks)
+    ax.grid(True)
+    ax2.xaxis.set_major_formatter(xticks)
+    ax2.grid(True)
 
     plt.subplots_adjust(wspace=0.075)
     d = .015 # how big to make the diagonal lines in axes coordinates
@@ -258,9 +266,6 @@ def death_probability_graph_in_bar_graph():
 
 def surface_overall_deadth_prob():
     """Create 3d Surface Graph overall deadth probability."""
-    import plotly.plotly as py
-    import plotly.tools as tls
-    from plotly.graph_objs import *
     #py.sign_in("username", "api key")
 
     data_m = load_data(1)
