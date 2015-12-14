@@ -6,6 +6,7 @@ since 1900 - 2011
 - python3
       - numpy
       - matplotlib
+      - plotly
 
 ###main.py
 
@@ -28,6 +29,13 @@ death_probability_graph_in_bar_graph()
 - 21 - 39 early adulthood
 - 41 - 59 middle adulthood
 - 61 - 119 old age
+
+---
+
+```
+surface_overall_deadth_prob()
+```
+- [X] Create 3d Surface Graph overall deadth probability.
 
 ###data_tool.py
 ```
