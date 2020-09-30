@@ -4,6 +4,7 @@ since 1900 - 2011
 
 ##Requirement
 - python3
+libraries:
       - numpy
       - matplotlib
       - plotly
